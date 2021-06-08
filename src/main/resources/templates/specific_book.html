@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Books </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="parts/header :: header" >
+</header>
+<div class="container mt-5">
+    <h1> Книга</h1>
+
+    <div class="alert alert-info mt-2">
+        <h3 th:text="${book.name}"/>
+        <p th:text="'Автор: '+ ${book.author}"/>
+        <p th:text="'Категория: ' + ${book.category}"/>
+        <p th:text="'Год публикации: ' + ${book.year}"/>
+        <p th:text="'Кол-во страниц: ' + ${book.pages}"/>
+        <p th:text="'Цена: ' + ${book.cost}"/>
+
+    </div>
+
+    <a href="/main">Главная</a>
+
+
+</div>
+</body>
+</html>
