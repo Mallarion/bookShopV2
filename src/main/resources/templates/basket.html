@@ -12,21 +12,17 @@
     <input type="submit" value="Sign Out"/>
 </form>
 </div>
-
-<div>
-    <a href="/basket"> Basket </a>
-</div>
-
 <div class="container mt-5">
-    <h1> Главная</h1>
+    <h1> Корзина </h1>
 
-    <div th:each="el : ${books}"  class="alert alert-info mt-2">
+    <div th:each="el : ${zakaz}"  class="alert alert-info mt-2">
 
-        <h3 th:text="${el.name}"></h3>
-        <p th:text="${el.author}"></p>
-        <p th:text="${el.cost}"></p>
-        <a th:href="'/main/' + ${el.id}" class="btn btn-warning">Детальнее</a>
+        <h3 th:text="${el.getBook().getName()}"> </h3>
+        <p th:text="${el.getQuantity()}"></p>
     </div>
+
+    <a href="/main">Главная</a>
+
 </div>
 </body>
 </html>

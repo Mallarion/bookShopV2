@@ -25,16 +25,16 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
 
-    public Order getOrderList() {
-        return orderList;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderList(Order orderList) {
-        this.orderList = orderList;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @OneToOne(mappedBy ="user")
-    private Order orderList;
+    private Order order;
 
 
     public User() {

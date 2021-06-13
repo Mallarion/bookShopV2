@@ -2,6 +2,7 @@ package by.klekto.bookSHopV2.service;
 
 import by.klekto.bookSHopV2.domain.Role;
 import by.klekto.bookSHopV2.domain.User;
+import by.klekto.bookSHopV2.repository.OrderRepository;
 import by.klekto.bookSHopV2.repository.RoleRepository;
 import by.klekto.bookSHopV2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     @PersistenceContext
     private EntityManager em;
+    @Autowired
+    OrderRepository orderRepository;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -63,6 +66,7 @@ public class UserService implements UserDetailsService {
 
     public boolean deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
+            orderRepository.delete(orderRepository.findOrderByUserId(userId));
             userRepository.deleteById(userId);
             return true;
         }
