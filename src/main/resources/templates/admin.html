@@ -40,6 +40,16 @@
 
                     </td>
 
+                    <td>
+                        <form th:action="@{/users}" method="post">
+                            <input type="hidden" name="userId" th:value="${el.getId()}"/>
+                            <input type="hidden" name="action" value="show"/>
+                            <button type="submit">Show basket</button>
+                        </form>
+                    </td>
+
+
+
                 </tr>
 
         </table>

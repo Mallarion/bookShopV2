@@ -63,18 +63,14 @@ public class Main1 {
         BookInOrder bookInOrder1 = new BookInOrder();
         bookInOrder1.setBook(book);
 
-
         if(quantity>0){
         bookInOrder1.setQuantity(quantity);
         }
-
         else{
             bookInOrder1.setQuantity(0);
         }
 
         List<BookInOrder > bookInOrders1= new ArrayList<>();
-
-
 
         Order order= orderRepository.findOrderByUserId(user.getId());
         if (order !=null){
@@ -86,8 +82,6 @@ public class Main1 {
             bookInOrders1.add(bookInOrder1);
             order.setBookInOrders(bookInOrders1);
             orderRepository.save(order);
-
-
 
         }
         else{
@@ -102,7 +96,6 @@ public class Main1 {
 
         }
 
-        /*bookInOrderRepository.save(bookInOrder1);*/
         return "redirect:/main";
     }
 }

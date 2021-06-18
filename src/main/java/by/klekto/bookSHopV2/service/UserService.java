@@ -1,7 +1,10 @@
 package by.klekto.bookSHopV2.service;
 
+import by.klekto.bookSHopV2.domain.BookInOrder;
+import by.klekto.bookSHopV2.domain.Order;
 import by.klekto.bookSHopV2.domain.Role;
 import by.klekto.bookSHopV2.domain.User;
+import by.klekto.bookSHopV2.repository.BookInOrderRepository;
 import by.klekto.bookSHopV2.repository.OrderRepository;
 import by.klekto.bookSHopV2.repository.RoleRepository;
 import by.klekto.bookSHopV2.repository.UserRepository;
@@ -27,6 +30,8 @@ public class UserService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
     @Autowired
+    BookInOrderRepository bookInOrderRepository;
+    @Autowired
     RoleRepository roleRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -40,6 +45,12 @@ public class UserService implements UserDetailsService {
         }
 
         return user;
+    }
+
+    public Order findOrderByUserName(String username){
+        User user= userRepository.findByUsername(username);
+        Order specificOrder= user.getOrder();
+        return specificOrder;
     }
 
     public User findUserById(Long userId) {
@@ -66,7 +77,12 @@ public class UserService implements UserDetailsService {
 
     public boolean deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
-            orderRepository.delete(orderRepository.findOrderByUserId(userId));
+            Order order= orderRepository.findOrderByUserId(userId);
+            List <BookInOrder> bookInOrders= bookInOrderRepository.findBooksInOrdersByOrder(order);
+            if(!bookInOrders.isEmpty()){
+                bookInOrderRepository.deleteAll(bookInOrders);
+                orderRepository.delete(order);
+            }
             userRepository.deleteById(userId);
             return true;
         }

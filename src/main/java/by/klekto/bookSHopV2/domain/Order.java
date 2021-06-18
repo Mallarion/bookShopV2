@@ -20,8 +20,6 @@ public class Order {
         this.user = user;
     }
 
-
-
     @OneToMany(mappedBy = "order") //В одном Заказе может быть множество Вещей
     private List<BookInOrder> bookInOrders;
 
